@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- bsv unpkg cdn -->
+		<script src="https://unpkg.com/bsv@1.5"></script>
 		<title>ASCII to Hex Chart</title>
 		<style>
 			* {
@@ -107,7 +109,7 @@
 		</div>
 		<div class="container" id="output">
 			<label for="">Output</label>
-			<input type="text" name="" id="output" />
+			<input type="text" name="" id="outputVal" />
 		</div>
 		<div class="container" id="chart">
 			<!-- ascii,hex,binary, we will use javascript to fill out the div -->
@@ -121,6 +123,7 @@
 		</div>
 
 		<script>
+			const Buffer = bsv.deps.Buffer;
 			for (i = 0; i < 128; i++) {
 				var ascii = i;
 				var hex = i.toString(16);
@@ -139,12 +142,14 @@
 			function convert() {
 				console.log("convert");
 				var input = document.getElementById("input").value;
-				var output = document.getElementById("output");
+				var output = document.getElementById("outputVal");
 				var hexValue = "";
+				//use bsv to convert to hex
 				for (i = 0; i < input.length; i++) {
-					hexValue += input[i].charCodeAt(0).toString(16) + " ";
+					var hex = Buffer.from(input[i]).toString("hex");
+					hexValue += hex + " ";
 				}
-
+				console.log(hexValue);
 				output.value = hexValue.trim();
 			}
 		</script>
