@@ -126,6 +126,14 @@
 
 		<script>
 			const Buffer = bsv.deps.Buffer;
+			const bufferWriter = bsv.encoding.BufferWriter;
+			const littleEndian = async (data) => {
+				const buf = Buffer.from(data);
+				const bufLength = buf.length;
+				console.log(bufLength);
+				// find buf alloc length needed
+			};
+			littleEndian("hello world");
 			const table = document.querySelector("#chart table");
 			const outputVal = document.getElementById("outputVal");
 			const descriptions = [
