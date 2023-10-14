@@ -101,19 +101,19 @@
 	</head>
 	<body>
 		<div class="container" id="header">
-			<h1>ASCII to Hex Chart</h1>
+			<h1>ASCII to Hex and Binary Chart</h1>
 		</div>
 		<div class="container" id="userInput">
-			<label for="">Enter Data To Convert To Hex</label>
-			<input type="text" name="" id="input" />
+			<label for="input">Enter Data To Convert To Hex</label>
+			<input type="text" name="input" id="input" />
 			<button onclick="convert()">Convert</button>
 		</div>
 		<div class="container" id="output">
-			<label for="">Output</label>
-			<input type="text" name="" id="outputVal" />
+			<label for="outputVal">Output</label>
+			<input type="text" name="outputVal" id="outputVal" />
 		</div>
 		<div class="container" id="chart">
-			<!-- ascii,hex,binary, we will use javascript to fill out the div -->
+			<!-- ASCII, Hex, Binary table -->
 			<table>
 				<tr>
 					<th>ASCII</th>
@@ -125,33 +125,28 @@
 
 		<script>
 			const Buffer = bsv.deps.Buffer;
-			for (i = 0; i < 128; i++) {
-				var ascii = i;
-				var hex = i.toString(16);
-				var binary = i.toString(2);
-				var table = document
-					.getElementById("chart")
-					.getElementsByTagName("table")[0];
-				var row = table.insertRow(i);
-				var cell1 = row.insertCell(0);
-				var cell2 = row.insertCell(1);
-				var cell3 = row.insertCell(2);
+			const table = document.querySelector("#chart table");
+			const outputVal = document.getElementById("outputVal");
+
+			// Populate the ASCII to Hex and Binary chart
+			for (let i = 0; i < 256; i++) {
+				const ascii = String.fromCharCode(i);
+				const hex = i.toString(16).toUpperCase().padStart(2, "0");
+				const binary = i.toString(2).padStart(8, "0");
+				const row = table.insertRow();
+				const cell1 = row.insertCell(0);
+				const cell2 = row.insertCell(1);
+				const cell3 = row.insertCell(2);
 				cell1.innerHTML = ascii;
 				cell2.innerHTML = hex;
 				cell3.innerHTML = binary;
 			}
 			function convert() {
-				console.log("convert");
-				var input = document.getElementById("input").value;
-				var output = document.getElementById("outputVal");
-				var hexValue = "";
-				//use bsv to convert to hex
-				for (i = 0; i < input.length; i++) {
-					var hex = Buffer.from(input[i]).toString("hex");
-					hexValue += hex + " ";
-				}
-				console.log(hexValue);
-				output.value = hexValue.trim();
+				const input = document.getElementById("input").value;
+				const hexValue = Array.from(input)
+					.map((char) => char.charCodeAt(0).toString(16).toUpperCase())
+					.join(" ");
+				outputVal.value = hexValue;
 			}
 		</script>
 	</body>
