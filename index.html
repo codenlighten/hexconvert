@@ -117,6 +117,7 @@
 			<table>
 				<tr>
 					<th>ASCII</th>
+					<th>Description</th>
 					<th>Hex</th>
 					<th>Binary</th>
 				</tr>
@@ -127,19 +128,56 @@
 			const Buffer = bsv.deps.Buffer;
 			const table = document.querySelector("#chart table");
 			const outputVal = document.getElementById("outputVal");
-
+			const descriptions = [
+				"NUL",
+				"SOH",
+				"STX",
+				"ETX",
+				"EOT",
+				"ENQ",
+				"ACK",
+				"BEL",
+				"BS",
+				"HT",
+				"LF",
+				"VT",
+				"FF",
+				"CR",
+				"SO",
+				"SI",
+				"DLE",
+				"DC1",
+				"DC2",
+				"DC3",
+				"DC4",
+				"NAK",
+				"SYN",
+				"ETB",
+				"CAN",
+				"EM",
+				"SUB",
+				"ESC",
+				"FS",
+				"GS",
+				"RS",
+				"US",
+				"Space",
+			];
 			// Populate the ASCII to Hex and Binary chart
 			for (let i = 0; i < 256; i++) {
 				const ascii = String.fromCharCode(i);
 				const hex = i.toString(16).toUpperCase().padStart(2, "0");
 				const binary = i.toString(2).padStart(8, "0");
+				const description = i < descriptions.length ? descriptions[i] : "";
 				const row = table.insertRow();
 				const cell1 = row.insertCell(0);
 				const cell2 = row.insertCell(1);
 				const cell3 = row.insertCell(2);
+				const cell4 = row.insertCell(3);
 				cell1.innerHTML = ascii;
-				cell2.innerHTML = hex;
-				cell3.innerHTML = binary;
+				cell2.innerHTML = description;
+				cell3.innerHTML = hex;
+				cell4.innerHTML = binary;
 			}
 			function convert() {
 				const input = document.getElementById("input").value;
